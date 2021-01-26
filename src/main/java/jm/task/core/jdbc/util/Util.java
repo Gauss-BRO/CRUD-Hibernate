@@ -1,5 +1,18 @@
 package jm.task.core.jdbc.util;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+
 public class Util {
     // реализуйте настройку соеденения с БД
+    private static final String DB_DRIVER = "com.mysql.cj.jdbc.Driver";
+    private static final String DB_CONNECTION = "jdbc:mysql://localhost:3306/training_data_base";
+    private static final String DB_USER = "root";
+    private static final String DB_PASSWORD = "Lasto4kaTo4kaRu";
+
+    public static Connection getDBConnection() throws ClassNotFoundException, SQLException {
+        Class.forName(DB_DRIVER);
+        return DriverManager.getConnection(DB_CONNECTION, DB_USER,DB_PASSWORD);
+    }
 }
