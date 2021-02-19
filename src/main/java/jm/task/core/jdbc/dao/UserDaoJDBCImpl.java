@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class UserDaoJDBCImpl implements UserDao {
-    private String nameTable = "user_table";
+    private final String nameTable = "user_table";
     public UserDaoJDBCImpl() {
 
     }
@@ -24,7 +24,7 @@ public class UserDaoJDBCImpl implements UserDao {
             PreparedStatement pst = connection.prepareStatement(sql);
             pst.executeUpdate();
         } catch (ClassNotFoundException ex) {
-            System.out.println("ClassNotFoundException");
+            ex.printStackTrace();
         } catch (SQLException ex) {
             System.out.println("SQLException");
         }
