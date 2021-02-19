@@ -8,14 +8,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class UserDaoJDBCImpl implements UserDao {
-    private final String nameTable = "user_table";
     public UserDaoJDBCImpl() {
 
     }
 
     public void createUsersTable() {
         try (Connection connection = Util.getDBConnection()) {
-            String sql = "CREATE TABLE IF NOT EXISTS " + nameTable +
+            String sql = "CREATE TABLE IF NOT EXISTS user_table" +
                     " (id INTEGER not NULL auto_increment, " +
                     " name VARCHAR(255), " +
                     " lastName VARCHAR(255), " +
@@ -32,7 +31,7 @@ public class UserDaoJDBCImpl implements UserDao {
 
     public void dropUsersTable() {
         try (Connection connection = Util.getDBConnection()) {
-            String sql = "DROP TABLE IF EXISTS " + nameTable;
+            String sql = "DROP TABLE IF EXISTS user_table";
             PreparedStatement pst = connection.prepareStatement(sql);
             pst.execute();
         } catch (ClassNotFoundException ex) {
@@ -44,7 +43,7 @@ public class UserDaoJDBCImpl implements UserDao {
 
     public void saveUser(String name, String lastName, byte age) {
         try (Connection connection = Util.getDBConnection()) {
-            String sql = "INSERT INTO " + nameTable + " (name, lastName, age) VALUES (?, ?, ?)";
+            String sql = "INSERT INTO user_table (name, lastName, age) VALUES (?, ?, ?)";
             PreparedStatement pst = connection.prepareStatement(sql);
             pst.setString(1, name);
             pst.setString(2, lastName);
@@ -59,7 +58,7 @@ public class UserDaoJDBCImpl implements UserDao {
 
     public void removeUserById(long id) {
         try (Connection connection = Util.getDBConnection()) {
-            String sql = "DELETE FROM " + nameTable + " WHERE id = ?";
+            String sql = "DELETE FROM user_table WHERE id = ?";
             PreparedStatement pst = connection.prepareStatement(sql);
             pst.setInt(1, (int) id);
             pst.execute();
@@ -73,7 +72,7 @@ public class UserDaoJDBCImpl implements UserDao {
     public List<User> getAllUsers() {
         List<User> userList = new ArrayList<>();
         try (Connection connection = Util.getDBConnection()) {
-            String sql = "SELECT id, name, lastname, age FROM " + nameTable;
+            String sql = "SELECT id, name, lastname, age FROM user_table";
             PreparedStatement pst = connection.prepareStatement(sql);
             ResultSet rs = pst.executeQuery(sql);
             while(rs.next()) {
@@ -94,7 +93,7 @@ public class UserDaoJDBCImpl implements UserDao {
 
     public void cleanUsersTable() {
         try (Connection connection = Util.getDBConnection()) {
-            String sql = "TRUNCATE TABLE " + nameTable;
+            String sql = "TRUNCATE TABLE user_table";
             PreparedStatement pst = connection.prepareStatement(sql);
             pst.execute();
         } catch (ClassNotFoundException ex) {

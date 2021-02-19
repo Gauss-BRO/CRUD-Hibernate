@@ -23,6 +23,5 @@ public class Main {
         dataBase.getAllUsers().forEach(System.out::println);
         dataBase.cleanUsersTable();
         dataBase.dropUsersTable();
-        Util.getSessionFactory().close();
     }
 }
